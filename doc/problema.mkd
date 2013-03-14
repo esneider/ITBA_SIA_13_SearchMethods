@@ -70,3 +70,4 @@ Decidir que tablero usar:
 | cerrado  | bandera  |
 | cerrado  | factible |
 | cerrado  | abierto  |
+
