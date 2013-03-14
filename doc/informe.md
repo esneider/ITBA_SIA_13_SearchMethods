@@ -2,9 +2,9 @@
 
 ###Parámetros del juego
 
-*`alto`: altura del tablero (cantidad de casillas).
-*`ancho`: ancho del tablero (cantidad de casillas).
-*`minas`: cantidad total de minas en el tablero.
+* `alto`: altura del tablero (cantidad de casillas).
+* `ancho`: ancho del tablero (cantidad de casillas).
+* `minas`: cantidad total de minas en el tablero.
 
 ###Juego
 
@@ -20,10 +20,10 @@ Un tablero de `alto * ancho` casillas.
 
 Un ente con exactamente uno de los siguientes estados:
 
-*`bandera`: marca que indican la presencia de una mina.
-*`factible`: marca que indican que la casilla fue analizada, pero aún no se decidió si hay una mina.
-*`abierto`: casilla abierta con un número asociado (entre 0 y 8) de minas adyacentes.
-*`cerrado`: casilla que aún no ha sido explorada.
+* `bandera`: marca que indican la presencia de una mina.
+* `factible`: marca que indican que la casilla fue analizada, pero aún no se decidió si hay una mina.
+* `abierto`: casilla abierta con un número asociado (entre 0 y 8) de minas adyacentes.
+* `cerrado`: casilla que aún no ha sido explorada.
 
 ###Otros
 
@@ -52,22 +52,21 @@ Decidir que tablero usar:
 
 * El propuesto
 
-X        |     Y
---------------------
-bandera  |  abierto
-factible |  bandera
-factible |  abierto
-cerrado  |  bandera
-cerrado  |  factible
-cerrado  |  abierto
+| X        | Y        |
+|----------|----------|
+| bandera  | abierto  |
+| factible | bandera  |
+| factible | abierto  |
+| cerrado  | bandera  |
+| cerrado  | factible |
+| cerrado  | abierto  |
 
 * El más simple
 
-X        |     Y
---------------------
-bandera  |  cerrado
-factible |  cerrado
-cerrado  |  bandera
-cerrado  |  factible
-cerrado  |  abierto
-
+| X        | Y        |
+|----------|----------|
+| bandera  | cerrado  |
+| factible | cerrado  |
+| cerrado  | bandera  |
+| cerrado  | factible |
+| cerrado  | abierto  |
