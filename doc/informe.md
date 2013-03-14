@@ -1,0 +1,73 @@
+##Definiciones básicas
+
+###Parámetros del juego
+
+*`alto`: altura del tablero (cantidad de casillas).
+*`ancho`: ancho del tablero (cantidad de casillas).
+*`minas`: cantidad total de minas en el tablero.
+
+###Juego
+
+Un tablero de `alto * ancho` posiciones, con `minas` minas. En cada posición
+hay una mina o un número (del 0 al 8) que indica la cantidad de minas
+adyacentes (8-connectivity).
+
+###Estado
+
+Un tablero de `alto * ancho` casillas.
+
+###Casilla
+
+Un ente con exactamente uno de los siguientes estados:
+
+*`bandera`: marca que indican la presencia de una mina.
+*`factible`: marca que indican que la casilla fue analizada, pero aún no se decidió si hay una mina.
+*`abierto`: casilla abierta con un número asociado (entre 0 y 8) de minas adyacentes.
+*`cerrado`: casilla que aún no ha sido explorada.
+
+###Otros
+
+* casillas `exploradas`: casillas con uno de los siguientes estados: `bandera`, `factible` o `abierto`.
+* casillas `expandidas`: casillas con uno de los siguientes estados: `bandera` o `abierto`.
+
+## Problema
+
+###Estado inicial
+
+Un tablero en donde cada casilla tiene estado `cerrado`.
+
+###Estado objetivo
+
+Un tablero en donde hay exactamente `alto * ancho - minas` casillas con estado `abierto`.
+
+###Igualdad de dos estados `A` y `B`
+
+Para toda posición `(i,j)`, `A(i,j)` tiene el mismo estado que `B(i,j)`.
+
+##Reglas
+
+Cambiar el estado de una casilla con estado `X` a estado `Y`:
+
+Decidir que tablero usar:
+
+* El propuesto
+
+X        |     Y
+--------------------
+bandera  |  abierto
+factible |  bandera
+factible |  abierto
+cerrado  |  bandera
+cerrado  |  factible
+cerrado  |  abierto
+
+* El más simple
+
+X        |     Y
+--------------------
+bandera  |  cerrado
+factible |  cerrado
+cerrado  |  bandera
+cerrado  |  factible
+cerrado  |  abierto
+
