@@ -1,0 +1,14 @@
+##Índice
+
+* Definiciones básicas
+  * Parámetros del juego
+  * Juego
+  * Estado
+  * Casilla
+  * Otros
+* Problema
+  * Estado inicial
+  * Estado objetivo
+  * Igualdad de dos estados
+* Reglas
+

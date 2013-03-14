@@ -50,7 +50,7 @@ Cambiar el estado de una casilla con estado `X` a estado `Y`:
 
 Decidir que tablero usar:
 
-* El propuesto
+* El propuesto (todos los estados + optimizado)
 
 | X        | Y        |
 |----------|----------|
@@ -61,7 +61,7 @@ Decidir que tablero usar:
 | cerrado  | factible |
 | cerrado  | abierto  |
 
-* El más simple
+* Más simple (todos los estados)
 
 | X        | Y        |
 |----------|----------|
@@ -70,4 +70,33 @@ Decidir que tablero usar:
 | cerrado  | bandera  |
 | cerrado  | factible |
 | cerrado  | abierto  |
+
+* Máas simple (sin factible)
+
+| X       | Y       |
+|---------|---------|
+| bandera | cerrado |
+| cerrado | bandera |
+| cerrado | abierto |
+
+* Aún más simple (sin factible + optimizado)
+
+| X       | Y       |
+|---------|---------|
+| bandera | abierto |
+| cerrado | bandera |
+| cerrado | abierto |
+
+* Incriblemente más simple (sin factible + bandera irreversible)
+
+| X       | Y       |
+|---------|---------|
+| cerrado | bandera |
+| cerrado | abierto |
+
+* El más simple (sin factible ni bandera)
+
+| X       | Y       |
+|---------|---------|
+| cerrado | abierto |
 
