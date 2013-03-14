@@ -100,3 +100,6 @@ Decidir que tablero usar:
 |---------|---------|
 | cerrado | abierto |
 
+## Representación de un estado
+
+`TODO`
