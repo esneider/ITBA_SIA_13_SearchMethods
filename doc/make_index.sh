@@ -11,7 +11,7 @@ echo >> ${NAME}
 
 for file in ${FILE_LIST}; do
 
-    title="$(echo $(tr a-z A-Z <<< "${file:0:1}")"${file:1}" | egrep -o "^[^.]+")"
+    title="$(echo $(tr '[:lower:]' '[:upper:]' <<< "${file:0:1}")"${file:1}" | egrep -o "^[^.]+")"
 
     echo '* '"${title}" >> ${NAME}
 
