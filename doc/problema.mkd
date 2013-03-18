@@ -12,7 +12,7 @@ Un tablero de `alto * ancho` posiciones, con `minas` minas. En cada posición
 hay una mina o un número (del 0 al 8) que indica la cantidad de minas
 adyacentes (8-connectivity).
 
-###Estado
+###Estado del juego
 
 Un tablero de `alto * ancho` casillas.
 
@@ -20,86 +20,46 @@ Un tablero de `alto * ancho` casillas.
 
 Un ente con exactamente uno de los siguientes estados:
 
-* `bandera`: marca que indican la presencia de una mina.
-* `factible`: marca que indican que la casilla fue analizada, pero aún no se decidió si hay una mina.
+* `bandera`: marca que indica la presencia de una mina.
+* `factible`: marca que indica que la casilla fue analizada, pero aún no se decidió si hay una mina.
 * `abierto`: casilla abierta con un número asociado (entre 0 y 8) de minas adyacentes.
 * `cerrado`: casilla que aún no ha sido explorada.
+
+####Nota:
+
+Nosotros no usaremos el estado `factible` ya que es redundante a la solución
+y complejiza las reglas del juego.
 
 ###Otros
 
 * casillas `exploradas`: casillas con uno de los siguientes estados: `bandera`, `factible` o `abierto`.
 * casillas `expandidas`: casillas con uno de los siguientes estados: `bandera` o `abierto`.
 
-## Problema
+##Problema
 
-###Estado inicial
+###Estado del juego inicial
 
 Un tablero en donde cada casilla tiene estado `cerrado`.
 
-###Estado objetivo
+###Estado del juego objetivo
 
 Un tablero en donde hay exactamente `alto * ancho - minas` casillas con estado `abierto`.
 
-###Igualdad de dos estados `A` y `B`
+###Igualdad de dos estados del juego `A` y `B`
 
 Para toda posición `(i,j)`, `A(i,j)` tiene el mismo estado que `B(i,j)`.
 
 ##Reglas
 
-Cambiar el estado de una casilla con estado `X` a estado `Y`:
+Elegir una casilla `C` cuyo estado sea `cerrado`.
 
-Decidir que tablero usar:
+* Crear un nuevo tablero (estado del juego), cambiando el estado de `C` a `bandera`.
+* Crear un nuevo tablero (estado del juego), cambiando el estado de `C` a `abierto`,
+  siempre y cuando no haya una mina debajo de la casilla.
 
-* El propuesto (todos los estados + optimizado)
+##Representación de un estado del juego
 
-| X        | Y        |
-|----------|----------|
-| bandera  | abierto  |
-| factible | bandera  |
-| factible | abierto  |
-| cerrado  | bandera  |
-| cerrado  | factible |
-| cerrado  | abierto  |
+Un tablero (estado del juego) lo representaremos como una matriz de `alto` por
+`ancho` casillas, en donde cada casilla será un `enum` de los estados de una
+casilla.
 
-* Más simple (todos los estados)
-
-| X        | Y        |
-|----------|----------|
-| bandera  | cerrado  |
-| factible | cerrado  |
-| cerrado  | bandera  |
-| cerrado  | factible |
-| cerrado  | abierto  |
-
-* Máas simple (sin factible)
-
-| X       | Y       |
-|---------|---------|
-| bandera | cerrado |
-| cerrado | bandera |
-| cerrado | abierto |
-
-* Aún más simple (sin factible + optimizado)
-
-| X       | Y       |
-|---------|---------|
-| bandera | abierto |
-| cerrado | bandera |
-| cerrado | abierto |
-
-* Incriblemente más simple (sin factible + bandera irreversible)
-
-| X       | Y       |
-|---------|---------|
-| cerrado | bandera |
-| cerrado | abierto |
-
-* El más simple (sin factible ni bandera)
-
-| X       | Y       |
-|---------|---------|
-| cerrado | abierto |
-
-## Representación de un estado
-
-`TODO`
