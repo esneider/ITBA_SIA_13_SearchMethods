@@ -17,8 +17,8 @@ for file in ${FILE_LIST}; do
 
     cat "${file}" | grep -E "^#.*# *$" | while read line; do
 
-        title=$(echo "${line}" | grep -Eo "^#+" | tr "#" " ")
-        title=${title:1}'* '"$(echo "${line}" | grep -Eo "[^# ].*[^# ]")"
+        title=$(echo "${line}" | grep -Eo "^#+" | sed "s/#/    /g")
+        title=${title:4}'* '"$(echo "${line}" | grep -Eo "[^# ].*[^# ]")"
 
         echo "${title}" >> ${NAME}
     done
