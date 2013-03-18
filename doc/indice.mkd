@@ -1,18 +1,17 @@
-##Índice
+## Índice
 
 * Portada
-* Índice
-* Definición del problema
-  * Definiciones básicas
-    * Parámetros del juego
-    * Juego
-    * Estado
-    * Casilla
-    * Otros
-  * Problema
-    * Estado inicial
-    * Estado objetivo
-    * Igualdad de dos estados
-  * Reglas
-  * Representación del problema
-* `TODO`
+* Indice
+* Problema
+ * Definiciones básicas
+  * Parámetros del juego
+  * Juego
+  * Estado del juego
+  * Casilla
+  * Otros
+ * Problema
+  * Estado del juego inicial
+  * Estado del juego objetivo
+  * Igualdad de dos estados del juego `A` y `B`
+ * Reglas
+ * Representación de un estado del juego

@@ -1,22 +1,22 @@
-##Definiciones básicas
+## Definiciones básicas ##
 
-###Parámetros del juego
+### Parámetros del juego ###
 
 * `alto`: altura del tablero (cantidad de casillas).
 * `ancho`: ancho del tablero (cantidad de casillas).
 * `minas`: cantidad total de minas en el tablero.
 
-###Juego
+### Juego ###
 
 Un tablero de `alto * ancho` posiciones, con `minas` minas. En cada posición
 hay una mina o un número (del 0 al 8) que indica la cantidad de minas
 adyacentes (8-connectivity).
 
-###Estado del juego
+### Estado del juego ###
 
 Un tablero de `alto * ancho` casillas.
 
-###Casilla
+### Casilla ###
 
 Un ente con exactamente uno de los siguientes estados:
 
@@ -25,31 +25,31 @@ Un ente con exactamente uno de los siguientes estados:
 * `abierto`: casilla abierta con un número asociado (entre 0 y 8) de minas adyacentes.
 * `cerrado`: casilla que aún no ha sido explorada.
 
-####Nota:
+#### Nota:
 
 Nosotros no usaremos el estado `factible` ya que es redundante a la solución
 y complejiza las reglas del juego.
 
-###Otros
+### Otros ###
 
 * casillas `exploradas`: casillas con uno de los siguientes estados: `bandera`, `factible` o `abierto`.
 * casillas `expandidas`: casillas con uno de los siguientes estados: `bandera` o `abierto`.
 
-##Problema
+## Problema ##
 
-###Estado del juego inicial
+### Estado del juego inicial ###
 
 Un tablero en donde cada casilla tiene estado `cerrado`.
 
-###Estado del juego objetivo
+### Estado del juego objetivo ###
 
 Un tablero en donde hay exactamente `alto * ancho - minas` casillas con estado `abierto`.
 
-###Igualdad de dos estados del juego `A` y `B`
+### Igualdad de dos estados del juego `A` y `B` ###
 
 Para toda posición `(i,j)`, `A(i,j)` tiene el mismo estado que `B(i,j)`.
 
-##Reglas
+## Reglas ##
 
 Elegir una casilla `C` cuyo estado sea `cerrado`.
 
@@ -57,7 +57,7 @@ Elegir una casilla `C` cuyo estado sea `cerrado`.
 * Crear un nuevo tablero (estado del juego), cambiando el estado de `C` a `abierto`,
   siempre y cuando no haya una mina debajo de la casilla.
 
-##Representación de un estado del juego
+## Representación de un estado del juego ##
 
 Un tablero (estado del juego) lo representaremos como una matriz de `alto` por
 `ancho` casillas, en donde cada casilla será un `enum` de los estados de una
