@@ -30,11 +30,6 @@ Un ente con exactamente uno de los siguientes estados:
 Nosotros no usaremos el estado `factible` ya que es redundante a la solución
 y complejiza las reglas del juego.
 
-### Otros ###
-
-* casillas `exploradas`: casillas con uno de los siguientes estados: `bandera`, `factible` o `abierto`.
-* casillas `expandidas`: casillas con uno de los siguientes estados: `bandera` o `abierto`.
-
 ## Problema ##
 
 ### Estado del juego inicial ###
