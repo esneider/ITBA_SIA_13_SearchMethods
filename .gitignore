@@ -4,7 +4,12 @@
 # Java
 *.class
 
-# Package Files #
+# Package Files
 *.jar
 *.war
 *.ear
+
+# Eclipse
+.classpath
+.project
+
