@@ -8,7 +8,7 @@
 
 ### Juego ###
 
-Un tablero de `alto * ancho` posiciones, con `minas` minas. En cada posición
+Un tablero de `alto` por `ancho` posiciones, con `minas` minas. En cada posición
 hay una mina o un número (del 0 al 8) que indica la cantidad de minas
 adyacentes (8-connectivity).
 
