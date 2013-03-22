@@ -17,11 +17,11 @@ public class Problem {
 
         Cell board[][] = new Cell[game.getWidth()][game.getHeight()];
 
-        for (Cell[] col : board) {
-            for (Cell cell : col) {
-                cell = Cell.CLOSED;
-            }
-        }
+        for (int k = 0; k < board.length; k++) {
+        	for (int j = 0; j < board[0].length; j++) {
+    			board[k][j] = Cell.CLOSED;
+    		}
+		}
 
         return new State(board);
     }

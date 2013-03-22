@@ -60,7 +60,7 @@ public class Solver {
 					int j = 0;
 					
 					for (String number : lineNumbers) {
-						if (number == "*") {
+						if (number.equals("*")) {
 							board[i][j] = Game.MINE;
 						} else {
 							board[i][j] = Integer.parseInt(number);
@@ -96,11 +96,11 @@ public class Solver {
 			
 			Strategy strategy = null;
 			
-			if (strategyName == "BFS") {
+			if (strategyName.equals("BFS")) {
 				strategy = new BFSStrategy(game);
-			} else if (strategyName == "DFS") {
+			} else if (strategyName.equals("DFS")) {
 				strategy = new DFSStrategy(game);
-			} else if (strategyName == "ID") {
+			} else if (strategyName.equals("ID")) {
 				IDStrategy IDstrategy = new IDStrategy(game);
 				
 				if (args.length == 3) {

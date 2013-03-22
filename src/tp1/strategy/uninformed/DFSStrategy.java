@@ -1,10 +1,14 @@
 package tp1.strategy.uninformed;
 
+import java.util.Stack;
+
 import tp1.engine.Node;
 import tp1.problem.Game;
 
 public class DFSStrategy extends UninformedStrategy {
 
+	Stack<Node> opened = new Stack<Node>();
+	
 	public DFSStrategy(Game game) {
 		super(game);
 		// TODO Auto-generated constructor stub
@@ -12,31 +16,33 @@ public class DFSStrategy extends UninformedStrategy {
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return "DFS Strategy";
 	}
 
 	@Override
 	public void addOpenedNode(Node node) {
-		// TODO Auto-generated method stub
-
+		
+		opened.push(node);
 	}
 
 	@Override
 	public Node popOpenedNode() {
-		// TODO Auto-generated method stub
+		if (!opened.empty()) {
+			return opened.pop();
+		}
+		
 		return null;
 	}
 
 	@Override
 	public void addClosedNode(Node node) {
-		// TODO Auto-generated method stub
+		//Since DFS hasn't got repeated states we do nothing
 
 	}
 
 	@Override
 	public boolean isClosedNode(Node newNode) {
-		// TODO Auto-generated method stub
+		//Since DFS hasn't got repeated states...
 		return false;
 	}
 

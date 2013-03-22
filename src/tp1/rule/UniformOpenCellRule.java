@@ -33,19 +33,17 @@ public class UniformOpenCellRule implements Rule {
     public State eval(State state) {
 
         if (valAtXY == Game.MINE) {
-
             return null;
         }
 
         if (state.getCell(x, y) != Cell.CLOSED) {
-
             return null;
         }
 
         Cell board[][] = state.getBoard();
 
         board[x][y] = Cell.OPENED;
-
+        
         return new State(board);
     }
 }
