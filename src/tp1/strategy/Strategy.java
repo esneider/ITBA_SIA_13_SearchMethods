@@ -11,7 +11,11 @@ public interface Strategy {
 
     public List<Rule> getRules();
 
-    public void addNode(Node node);
+    public void addOpenedNode(Node node);
 
-    public Node popNode();
+    public Node popOpenedNode();
+
+	public void addClosedNode(Node node);
+
+	public boolean isClosedNode(Node newNode);
 }
