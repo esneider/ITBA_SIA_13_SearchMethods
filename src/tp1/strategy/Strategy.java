@@ -14,8 +14,4 @@ public interface Strategy {
     public void addOpenedNode(Node node);
 
     public Node popOpenedNode();
-
-	public void addClosedNode(Node node);
-
-	public boolean isClosedNode(Node newNode);
 }
