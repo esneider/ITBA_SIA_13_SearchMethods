@@ -12,8 +12,7 @@ public class BFSStrategy extends UninformedStrategy {
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return "BFS Strategy";
 	}
 
 	@Override
@@ -30,13 +29,13 @@ public class BFSStrategy extends UninformedStrategy {
 
 	@Override
 	public void addClosedNode(Node node) {
-		// TODO Auto-generated method stub
+		//Guess what? We are not going to use this :D
 
 	}
 
 	@Override
 	public boolean isClosedNode(Node newNode) {
-		// TODO Auto-generated method stub
+		//Guess what? We are not going to use this :D
 		return false;
 	}
 
