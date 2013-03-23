@@ -1,22 +1,24 @@
 package tp1.strategy.uninformed;
 
+import java.util.Stack;
+
 import tp1.engine.Node;
 import tp1.problem.Game;
 
 public class IDStrategy extends UninformedStrategy {
 
 	int step = 1;
-	int current = 0;
+	Stack<Node> openedDFS = new Stack<Node>();
 	
 	public IDStrategy(Game game) {
+		
 		super(game);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return "ID Strategy";
 	}
 
 	@Override
@@ -44,7 +46,19 @@ public class IDStrategy extends UninformedStrategy {
 	}
 	
 	public void setStep(int step) {
+		
 		this.step = step;
 	}
 
+	class IDNode {
+		
+		public Node node;
+		public int level;
+		
+		public IDNode(Node node, int level) {
+			
+			this.node = node;
+			this.level = level;
+		}
+	}
 }
