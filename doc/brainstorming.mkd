@@ -1,0 +1,18 @@
+* introduccion
+* definicion del problema
+* descripcion de los metodos no informados
+    * DFS
+        * explicacion de por que es tan rapido
+    * BFS
+        * explicacion de por que es tan lento
+        * explicacion del uso de hashset
+        * explicacion del hashcode de los estados
+    * ID
+        * explicacion del codigo
+* comparacion entre no informados (benchmarks)
+    * tiempo de ejecucion
+    * nodos expandidos
+    * memoria
+* problemas con los metodos informados
+* solucion alternativa (ajena)
+* descripcion papers
