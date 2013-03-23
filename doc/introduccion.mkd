@@ -1,0 +1,7 @@
+# Introducción #
+
+El siguiente informe plasma el proceso de desarrollo de una aplicación que solucione un problema relacionado 
+con un sistema de búsqueda. Este tipo de problemas tiene como objetivo encontrar un camino entre 
+un estado inicial y un estado final del problema. Existen diversas maneras de resolver este tipo de problemas 
+ya sea con métodos de búsqueda desinformados o métodos de búsqueda informados. Particularmente, el problema que 
+buscamos resolver es el del juego del "Buscaminas".

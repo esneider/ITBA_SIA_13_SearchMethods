@@ -1,0 +1,15 @@
+## DFS: Depth First Search ##
+
+Un algoritmo DFS es un tipo de algoritmo que expande primero el nodo de mayor profundidad, almacenando siempre 
+un camino desde la raíz a un nodo hoja, más todos los nodos todavía no expandidos.
+
+En el caso del buscaminas, esto se traduce como simplemente abrir una casilla y luego otra y así sucesivamente 
+hasta ganar el juego. En caso de encontrar una mina, se vuelve al nodo padre.
+
+Para implementarla, utilizamos una Stack (Pila) que modela de forma óptima al DFS.
+
+Al probarlo nos encontramos con que este método provee una solución en tiempos rápidos. Esto se debe a que el 
+camino de nodos expandidos para encontrar la solución es pequeña, siempre avanzando en pos de la solución.
+
+En secciones posteriores se ofreceran tiempos de ejecución que se obtuvieron en tableros de prueba y comparaciones 
+con otras estrategias.
