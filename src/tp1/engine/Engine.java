@@ -11,22 +11,20 @@ public class Engine {
 
     	Strategy strategy = problem.getStrategy();
 
-        strategy.addOpenedNode(new Node(problem.getInitialState()));
+        strategy.addOpenedNode(new Node(problem.getInitialState(), 0, null));
+ 
         while (true) {
 
             Node node = strategy.popOpenedNode();
+
             if (node == null) {
+
                 System.out.println("perdimo loco!");
                 break;
             }
 
-            if (strategy.isClosedNode(node)) {
-                continue;
-            }
-
-            strategy.addClosedNode(node);
-
             if (problem.isGoalState(node.getState())) {
+
                 System.out.println("ganamo vieja!");
                 System.out.println(node);
                 break;
@@ -39,16 +37,12 @@ public class Engine {
     private void explode(Strategy strategy, Node node) {
 
         for (Rule rule : strategy.getRules()) {
+
             State newState = rule.eval(node.getState());
 
-            if (newState == null) {
-                continue;
-            }
+            if (newState != null) {
 
-            Node newNode = new Node(node, newState, node.getCost() + rule.getCost());
-
-            if (!strategy.isClosedNode(newNode)) {
-                strategy.addOpenedNode(newNode);
+                strategy.addOpenedNode(new Node(newState, node.getCost() + rule.getCost(), node));
             }
         }
     }

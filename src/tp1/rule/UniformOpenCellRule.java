@@ -40,10 +40,8 @@ public class UniformOpenCellRule implements Rule {
             return null;
         }
 
-        Cell board[][] = state.getBoard();
-
-        board[x][y] = Cell.OPENED;
-        
-        return new State(board);
+        return state.getChildFromCellChange(x, y, Cell.OPENED);
     }
+    
+    
 }

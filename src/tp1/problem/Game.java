@@ -4,9 +4,8 @@ public class Game {
 
     public static final int MINE = -1;
 
-    // (x,y) coordinates
     private int board[][];
-    private int mines = 0;
+    private int mineCount = 0;
 
     public Game(int board[][]) {
 
@@ -26,7 +25,7 @@ public class Game {
 
     public int getMineCount() {
 
-        return mines;
+        return mineCount;
     }
 
     public int getPosition(int x, int y) {
@@ -34,12 +33,12 @@ public class Game {
         return board[x][y];
     }
 
-    protected void countMines() {
+    private void countMines() {
 
         for (int[] col: board) {
             for (int pos: col) {
                 if (pos == MINE) {
-                    mines++;
+                    mineCount++;
                 }
             }
         }

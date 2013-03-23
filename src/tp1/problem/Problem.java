@@ -35,6 +35,4 @@ public class Problem {
 
         return strategy;
     }
-
-    // TODO: add heuristic
 }

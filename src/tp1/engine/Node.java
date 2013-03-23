@@ -5,39 +5,30 @@ import tp1.problem.State;
 public class Node {
 
     private State state;
-    private int cost = 0;
-    private Node parent = null;
+    private int cost;
+    private Node parent;
+    private int level = 0;
 
-    public Node(State state) {
+    public Node(State state, int cost, Node parent) {
 
         this.state = state;
-    }
-
-    public Node(State state, int cost) {
-
-        this(state);
         this.cost = cost;
-    }
-
-    public Node(Node parent, State state, int cost) {
-
-        this(state, cost);
         this.parent = parent;
+        
+        if (parent != null) {
+        	
+        	level = parent.getLevel() + 1;
+        }
     }
 
-    public void setParent(Node parent) {
+    public int getLevel() {
 
-        this.parent = parent;
-    }
+		return level;
+	}
 
-    public State getState() {
+	public State getState() {
 
         return state;
-    }
-
-    public Node getParent() {
-
-        return parent;
     }
 
     public int getCost() {
