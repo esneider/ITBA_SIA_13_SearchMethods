@@ -32,7 +32,7 @@ public class IDStrategy extends UninformedStrategy {
 	@Override
 	public void addOpenedNode(Node node) {
 		
-		if ((node.getLevel() == 0) || (node.getLevel() % this.step == 0)) {
+		if (node.getLevel() % step != 0) {
 			
 			openedDFS.push(node);
 		} else {
