@@ -1,14 +1,9 @@
 @ Definición del problema @
 
-El problema a tratar en el informe es del juego del "Buscaminas". Este juego clásico, encontrado en la
-mayoría de las distribuciones de los sistemas operativos más usados consiste en un tablero rectangular
-con un ancho y un alto definido, teniendo n casillas (definido por alto x ancho). Cada casilla puede o no
-contener una mina. El objetivo del juego es el de encontrar todas las casillas que no tengan minas. Como ayuda
-al usuario, cuando se triunfa en encontrar una casilla sin minas, se muestra un número. Este número representa
-la cantidad de minas adyacentes a esa casilla.
-
-Para resolver este problema como un sistema de búsqueda se definieron los siguientes términos, luego plasmados
-en el código final.
+El buscaminas es un juego clásico, encontrado en la mayoría de los sistemas operativos más usados.
+Consiste en un tablero rectangular de un ancho y un alto definidos, teniendo `n = alto x ancho` casillas.
+Cada casilla puede o no contener una mina. El objetivo del juego es el de descubrir todas las casillas que no tengan minas, sin decubrir ninguna mina.
+Cuando se encuentra una casilla sin minas, se muestra un número que representa la cantidad de minas adyacentes a esta casilla (8-connectivity).
 
 @@ Definiciones básicas @@
 
@@ -26,7 +21,7 @@ adyacentes (8-connectivity).
 
 @@@ Estado del juego @@@
 
-Un tablero de `alto * ancho` casillas.
+Un tablero de `alto` por `ancho` casillas.
 
 @@@ Casilla @@@
 
@@ -37,18 +32,13 @@ Un ente con exactamente uno de los siguientes estados:
 * `abierto`: casilla abierta con un número asociado (entre 0 y 8) de minas adyacentes.
 * `cerrado`: casilla que aún no ha sido explorada.
 
-@@@@ Nota:
+@@@@ Notas:
 
-Como primera observación, fue notable que el estado 'factible' no nos es relevante para nuestro algoritmos
-ya que simplemente añade incertidumbre, factor que ya se contaba previamente en la casilla.
+El estado `factible` no nos es relevante para nuestro algoritmos ya que simplemente es un marcador de incertidumbre.
 
-Al realizar un análisis más profundo, también fue resaltable que para los métodos de búsqueda no informados el
-estado 'bandera' tampoco es necesario ya que justamente estos métodos desarrollaran ramas del árbol que no
-contengan minas.
-
-En una instancia posterior, por razones que serán explicadas, los métodos de busqueda informados no pudieron ser
-implementados de modo tal que cumplan las definiciones vistas en clase, por lo cuál el estado 'bandera' finalmente
-no fue utilizado.
+Al realizar un análisis más profundo, notamos que para los métodos de búsqueda no informados el
+estado `bandera` tampoco es necesario ya que estos métodos justamente expanden ramas del árbol que no
+contienen minas.
 
 @@ Problema @@
 
@@ -66,7 +56,7 @@ Para toda posición `(i,j)`, `A(i,j)` tiene el mismo estado que `B(i,j)`.
 
 @@ Reglas @@
 
-Elegir una casilla `C` cuyo estado sea `cerrado`.
+Para cada casilla `C`, se aplican las siguientes reglas, si el estado de `C` es `cerrado`:
 
 * Crear un nuevo tablero (estado del juego), cambiando el estado de `C` a `bandera`. (Esta regla finalmente no fue
 utilizada).
@@ -76,6 +66,5 @@ utilizada).
 @@ Representación de un estado del juego @@
 
 Un tablero (estado del juego) lo representaremos como una matriz de `alto` por
-`ancho` casillas, en donde cada casilla será un `enum` de los estados de una
-casilla.
+`ancho` casillas, en donde cada casilla será un `enum` de sus posibles estados.
 
