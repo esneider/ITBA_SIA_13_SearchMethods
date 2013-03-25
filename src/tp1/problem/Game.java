@@ -73,49 +73,15 @@ public class Game {
 			}
 			
 			for (int x = 0; x < width; x++) {
-				if (lineNumbers)
+				board[x][y] = lineNumbers[x].equals("*") ? MINE : 0;
 			}
 		}
 
-		int i = 0;
-
-		while (line != null) {
-
-			String[] lineNumbers = line.split(",");
-
-			int j = 0;
-
-			for (String number : lineNumbers) {
-				if (number.equals("*")) {
-					board[i][j] = Game.MINE;
-				} else {
-					board[i][j] = Integer.parseInt(number);
-				}
-				j++;
-			}
-
-			i++;
-
-			try {
-				line = br.readLine();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-
-		try {
-			br.close();
-			in.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		// } catch (FileNotFoundException e) {
-		// TODO Auto-generated catch block
-		System.out.println("File not found");
-		// }
-
+		br.close();
+		in.close();
+		
+		countMines();
+		fillNumbers();
 	}
 
 	public int getHeight() {

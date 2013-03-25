@@ -1,9 +1,6 @@
 package tp1.problem;
 
-import java.io.BufferedReader;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 
 import tp1.engine.Engine;
 import tp1.strategy.Strategy;
@@ -15,42 +12,100 @@ public class Solver {
 
 	public static void main(String[] args) {
 
-		int[][] board = null;
-		Engine engine = new Engine();
-		Problem problem = null;
+		// parse input method
 
-		if (args.length >= 2) {
-			String filename = args[0];
+		int argsPos;
+		Game game;
 
-// TODO
-			Game game = new Game(board);
-
-			String strategyName = args[1];
-
-			Strategy strategy = null;
-
-			if (strategyName.equals("BFS")) {
-				strategy = new BFSStrategy(game);
-			} else if (strategyName.equals("DFS")) {
-				strategy = new DFSStrategy(game);
-			} else if (strategyName.equals("ID")) {
-				IDStrategy IDstrategy = new IDStrategy(game);
-
-				if (args.length == 3) {
-					int step = Integer.parseInt(args[2]);
-					IDstrategy.setStep(step);
-				}
-
-				strategy = IDstrategy;
-			}
-
-			if (strategy == null) {
-				System.out.println("The name of the strategy is not valid. Please use DFS, BFS or ID");
-			} else {
-				problem = new Problem(game, strategy);
-
-				engine.solve(problem);
-			}
+		if (args.length <= 2) {
+			printUsage();
+			return;
 		}
+		
+		if (args[0].equals("-f")) {
+
+			try {
+
+				game = new Game(args[1]);
+				argsPos = 2;
+
+			} catch (FileNotFoundException e) {
+				System.out.println("File not found.");
+				return;
+
+			} catch (Exception e) {
+				System.out.println("Invalid or corrupted file.");
+				return;
+			}
+
+		} else if (args[0].equals("-r") && args.length >= 5) {
+
+			try {
+				
+				game = new Game(Integer.parseInt(args[1]), Integer.parseInt(args[2]), Integer.parseInt(args[3]));
+				argsPos = 4;
+				
+			} catch (NumberFormatException e) {
+				printUsage();
+				return;
+			}
+			
+		} else {
+			printUsage();
+			return;
+		}
+
+		// parse search method
+
+		Strategy strategy;
+
+		if (args[argsPos].equals("DFS")) {
+			
+			strategy = new DFSStrategy(game);
+			
+		} else if (args[argsPos].equals("BFS")) {
+			
+			strategy = new BFSStrategy(game);
+			
+		} else if (args[argsPos].equals("ID")) {
+			
+			strategy = new IDStrategy(game);
+			
+			if (args.length > argsPos + 1) {
+				
+				try {
+
+					((IDStrategy)strategy).setStep(Integer.parseInt(args[++argsPos]));
+
+				} catch (NumberFormatException e) {
+					printUsage();
+					return;
+				}
+			}
+		} else {
+			printUsage();
+			return;
+		}
+		
+		if (args.length > argsPos + 1) {
+			printUsage();
+			return;
+		}
+
+		new Engine().solve(new Problem(game, strategy));
+	}
+	
+	private static void printUsage() {
+		
+		System.out.println("Usage:");
+		System.out.println("\tsolver -f file strategy");
+		System.out.println("\tsolver -r width height mines strategy");
+		System.out.println("\nThe first option reads a game board from 'file', the second creates a random");
+		System.out.println("game board with the given dimensions and mine count.");
+		System.out.println("\nThe 'strategy' has to be one of DFS, BFS or ID. In the case ID is used, a step");
+		System.out.println("can be given as an extra argument (the default step is 1).");
+		System.out.println("\nFor example the following call will run iterative deepening with a step of 5");
+		System.out.println("in a random 10x5 board with 8 mines:");
+		System.out.println("\n\tsolver -r 10 5 8 ID 5");
 	}
 }
