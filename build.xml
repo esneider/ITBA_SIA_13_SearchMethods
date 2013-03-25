@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="run" name="ITBA_SIA_13_SearchMethods">
+    <target name="clean">
+        <delete dir="bin"/>
+    </target>
+
+    <target name="compile">
+        <mkdir dir="bin"/>
+        <javac srcdir="src" destdir="bin"/>
+    </target>
+
+    <target name="jar" depends="compile">
+        <jar destfile="solver.jar" filesetmanifest="mergewithoutmain">
+            <manifest>
+                <attribute name="Main-Class" value="tp1.Solver"/>
+                <attribute name="Class-Path" value="."/>
+            </manifest>
+            <fileset dir="bin"/>
+        </jar>
+    </target>
+
+    <target name="run">
+        <java jar="solver.jar" fork="true">
+            <jvmarg value="-Dfile.encoding=utf8" />
+            <jvmarg value="-Xmx1000m" />
+	        <arg line="${args}"/>
+        </java>
+    </target>
+</project>
+

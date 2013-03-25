@@ -35,4 +35,10 @@ public class Problem {
 
         return strategy;
     }
+    
+    @Override
+    public String toString() {
+
+    	return game.toString();
+    }
 }
