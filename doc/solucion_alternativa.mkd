@@ -1,0 +1,43 @@
+## Solución Alternativa ##
+
+Existen varios enfoques al problema del buscaminas, estando estos basados en calculos
+de probabilidades. En esta sección tomaremos por ejemplo el algoritmo explicado en el
+paper "Minesweeper as a Constraint Satisfaction Problem" escrito por Chris Studholme en
+2001. Si bien paper tiene más de 10 años y existen papers más actuales sobre el problema,
+el enfoque de este paper esta basado en el cálculo de probabilidades (sobre el cual
+queremos hacer hincapié) y es un paper claro y de complejidad sencilla.
+
+Chris Studholme se basó en PGMS (Programmer's Minesweeper) para realizar su estrategia.
+PGMS posee un motor similar al motor de inferencia provisto por la catedra, dejandole al
+usuario la única responsabilidad de implementar la estrategia del juego del buscaminas.
+
+El modo de juego desarrollado en el paper difiere de los objetivos de nuestro algoritmo.
+Si bien nuestro objetivo es encontrar una solución, el objetivo del autor es el de
+encontrar una solución sin toparse ninguna mina en el camino (equivalente al juego real).
+De este modo otros recaudos deben tomarse en cuenta. Además, este factor hace que nuestras
+estrategias y la del CSPStrategy (nombre que le da el autor a su estrategia) no puedan ser
+comparadas.
+
+En un primer lugar, el autor hace enfasis en la elección de la primer casilla del juego,
+siendo esta una elección sin información. Tras un desarrollo, se explica que sería
+conveniente encontrar casillas cuyo número sea un 0 y es demostrado que aquellas
+casillas son las de las esquinas.
+
+En segundo lugar, provee un algoritmo de 7 pasos para elegir la casilla más conveniente a
+abrir. A continuación se hace una breve explicación de este algoritmo:
+
+* En primer lugar se realiza un calculo de probabilidades por casilla. En ciertos de estos casos se pude definir con certeza que en algunas casillas no hay minas o que por el contrario si las hay. En este caso, se procede a operar con estas casillas y se vuelve a comenzar el algoritmo.
+
+* En segundo lugar, puede haber codependencias entre las probabilidades de las casillas. Así, el segundo caso consiste en simplificar estas probabilidades uniendo datos ya conocidos. Operando de esta manera puede volver a suceder que se obtenga algún caso trivial, en cuyo caso se vuelve al paso 1.
+
+* En el caso en que hasta este punto no existan soluciones triviales, se puede dividir el espacio de probabilidades en subconjuntos que no sean codependientes. En base a esto, se modelan y calculan todas las posibles soluciones al juego. Algunas de estas posibilidades deben ser eliminadas ya que en ciertos casos no se cumplen condiciones (sea por ejemplo una diferencia en la cantidad de minas en el tablero y la cantidad de minas modeladas).
+
+* Una vez más, es posible que al calcular las soluciones posibles, contemos con alguna casilla trivial, en cuyo caso se vuelve al paso 1.
+
+* Si para este punto no se cuentan con certezas, habrá que hacer alguna apuesta. Si bien sería intuitivo apostar a la casilla con mayor probabilidad de triunfo, esto no es lo que realiza el algoritmo. Al evaluar los subconjuntos, es posible que alguno de estos vaya a ser inmutable e inexpandible al continuar el desarrollo de juego. El autor plantea que es conveniente resolver estas incognitas en primer lugar (denominadas por el autor como "Craps Shot") ya que es preferible perder en esta instancia y volver a comenzar un juego rapidamente, a posponer estas decisiones para el final del juego.
+
+* En el caso de no haber "Craps Shot" sí se procede a elegir la casilla con mejor probabilidad.
+
+* En el caso en que no haya una casilla con mejor probabilidad y nos hayamos quedado sin información relevante se procede de modo similar al comienzo del juego, tratando de buscar ceros y apostando a una casilla en alguna esquina.
+
+Como fue mencionado, no es posible comparar CSPStrategy con nuestras estrategias, pero si es posible compararlo con otros algoritmos. PGMS provee dos estrategias en su distribución, una trivial y una que se cree que toma un enfoque similar a CSPStrategy. Tanto en porcentaje de victorias como en tiempo de procesamiento de juego CSPStrategy supera a ambas estrategias de PGMS. En el anexo se adjuntan gráficos extraidos del paper.

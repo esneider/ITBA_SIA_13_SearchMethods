@@ -1,0 +1,28 @@
+## BFS: Breadth First Search ##
+
+Este tipo de estrategias tiene como particularidad que comienza expandiendo los nodos
+con menor profundidad. De esta manera, en caso de haber soluciones de poca profundidad,
+puede resultar muy eficiente.
+
+En el caso del buscaminas, la profundidad de la solución se conoce de antemano, siendo
+esta la cantidad de casillas libres. En un juego de buscaminas considerado "experto",
+alrededor de un 80% de las casillas estaran libres, haciendo así que una estrategia
+de tipo BFS tarde tiempos considerables en encontrar una solución.
+
+Más aún, al recorrer todo el árbol, termina siendo abusiva la cantidad de memoria que
+este algoritmo utiliza, generando un número importante de nodos por ronda. Debe
+considerarse que en cada nivel del árbol, por cada nodo existente, se expanden n
+casillas libres nodos. Naturalmente, por eficiencia espacial y temporal, hemos evitado
+evaluar estados equivalentes, a pesar de que el nodo padre sea uno distinto. Sin
+embargo, el crecimiento sigue siendo rápido, habiendo en cada nivel un número de nodos
+equivalente al número combinatorio entre el nivel del árbol y la cantidad de casillas
+libres.
+
+En un principio, bastaria implementar una estrategia BFS con una estructura dada por una
+cola, que representa perfectamente la necesidad de analizar primero los nodos de menor
+profundidad, sin embargo, por razones de eficiencia hemos agregado un HashSet de estados
+para poder validar con rapidez si algún estado equivalente ha sido repetido. Tras hacer
+ciertas pruebas hemos visto que el número de estado repetidos es muy grade, inclusive,
+siendo mayor que el número de nodos evaluados, por lo cual consideramos al HashSet una
+gran mejora en el algoritmo. La función de hash utilizada, creada por nosotros, se
+explica a continuación:
