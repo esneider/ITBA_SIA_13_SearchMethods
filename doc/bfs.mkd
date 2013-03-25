@@ -1,4 +1,4 @@
-## BFS: Breadth First Search ##
+@@ BFS: Breadth First Search @@
 
 Este tipo de estrategias tiene como particularidad que comienza expandiendo los nodos
 con menor profundidad. De esta manera, en caso de haber soluciones de poca profundidad,

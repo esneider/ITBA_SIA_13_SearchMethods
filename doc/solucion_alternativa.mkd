@@ -1,4 +1,4 @@
-## Solución Alternativa ##
+@@ Solución Alternativa @@
 
 Existen varios enfoques al problema del buscaminas, estando estos basados en calculos
 de probabilidades. En esta sección tomaremos por ejemplo el algoritmo explicado en el

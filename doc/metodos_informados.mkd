@@ -1,4 +1,4 @@
-# Metodos Informados #
+@ Metodos Informados @
 
 Un metodo de búsqueda informado, es un método que añade valores que estiman cuánto
 falta para alcanzar el objetivo. Estos valores estan dados por una función heuristica.

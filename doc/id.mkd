@@ -1,4 +1,4 @@
-## ID: Iterative Deepening ##
+@@ ID: Iterative Deepening @@
 
 Iterative deepening, en español conocido como profundización iterativa, es una
 estrategia que combina las ventajas de un DFS y un BFS.

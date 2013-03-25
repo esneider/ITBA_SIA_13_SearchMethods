@@ -1,34 +1,34 @@
-# Definición del problema #
+@ Definición del problema @
 
-El problema a tratar en el informe es del juego del "Buscaminas". Este juego clásico, encontrado en la 
-mayoría de las distribuciones de los sistemas operativos más usados consiste en un tablero rectangular 
-con un ancho y un alto definido, teniendo n casillas (definido por alto x ancho). Cada casilla puede o no 
-contener una mina. El objetivo del juego es el de encontrar todas las casillas que no tengan minas. Como ayuda 
-al usuario, cuando se triunfa en encontrar una casilla sin minas, se muestra un número. Este número representa 
+El problema a tratar en el informe es del juego del "Buscaminas". Este juego clásico, encontrado en la
+mayoría de las distribuciones de los sistemas operativos más usados consiste en un tablero rectangular
+con un ancho y un alto definido, teniendo n casillas (definido por alto x ancho). Cada casilla puede o no
+contener una mina. El objetivo del juego es el de encontrar todas las casillas que no tengan minas. Como ayuda
+al usuario, cuando se triunfa en encontrar una casilla sin minas, se muestra un número. Este número representa
 la cantidad de minas adyacentes a esa casilla.
 
-Para resolver este problema como un sistema de búsqueda se definieron los siguientes términos, luego plasmados 
+Para resolver este problema como un sistema de búsqueda se definieron los siguientes términos, luego plasmados
 en el código final.
 
-## Definiciones básicas ##
+@@ Definiciones básicas @@
 
-### Parámetros del juego ###
+@@@ Parámetros del juego @@@
 
 * `alto`: altura del tablero (cantidad de casillas).
 * `ancho`: ancho del tablero (cantidad de casillas).
 * `minas`: cantidad total de minas en el tablero.
 
-### Juego ###
+@@@ Juego @@@
 
 Un tablero de `alto` por `ancho` posiciones, con `minas` minas. En cada posición
 hay una mina o un número (del 0 al 8) que indica la cantidad de minas
 adyacentes (8-connectivity).
 
-### Estado del juego ###
+@@@ Estado del juego @@@
 
 Un tablero de `alto * ancho` casillas.
 
-### Casilla ###
+@@@ Casilla @@@
 
 Un ente con exactamente uno de los siguientes estados:
 
@@ -37,43 +37,43 @@ Un ente con exactamente uno de los siguientes estados:
 * `abierto`: casilla abierta con un número asociado (entre 0 y 8) de minas adyacentes.
 * `cerrado`: casilla que aún no ha sido explorada.
 
-#### Nota:
+@@@@ Nota:
 
-Como primera observación, fue notable que el estado 'factible' no nos es relevante para nuestro algoritmos 
+Como primera observación, fue notable que el estado 'factible' no nos es relevante para nuestro algoritmos
 ya que simplemente añade incertidumbre, factor que ya se contaba previamente en la casilla.
 
-Al realizar un análisis más profundo, también fue resaltable que para los métodos de búsqueda no informados el 
-estado 'bandera' tampoco es necesario ya que justamente estos métodos desarrollaran ramas del árbol que no 
+Al realizar un análisis más profundo, también fue resaltable que para los métodos de búsqueda no informados el
+estado 'bandera' tampoco es necesario ya que justamente estos métodos desarrollaran ramas del árbol que no
 contengan minas.
 
-En una instancia posterior, por razones que serán explicadas, los métodos de busqueda informados no pudieron ser 
-implementados de modo tal que cumplan las definiciones vistas en clase, por lo cuál el estado 'bandera' finalmente 
+En una instancia posterior, por razones que serán explicadas, los métodos de busqueda informados no pudieron ser
+implementados de modo tal que cumplan las definiciones vistas en clase, por lo cuál el estado 'bandera' finalmente
 no fue utilizado.
 
-## Problema ##
+@@ Problema @@
 
-### Estado del juego inicial ###
+@@@ Estado del juego inicial @@@
 
 Un tablero en donde cada casilla tiene estado `cerrado`.
 
-### Estado del juego objetivo ###
+@@@ Estado del juego objetivo @@@
 
 Un tablero en donde hay exactamente `alto * ancho - minas` casillas con estado `abierto`.
 
-### Igualdad de dos estados del juego `A` y `B` ###
+@@@ Igualdad de dos estados del juego `A` y `B` @@@
 
 Para toda posición `(i,j)`, `A(i,j)` tiene el mismo estado que `B(i,j)`.
 
-## Reglas ##
+@@ Reglas @@
 
 Elegir una casilla `C` cuyo estado sea `cerrado`.
 
-* Crear un nuevo tablero (estado del juego), cambiando el estado de `C` a `bandera`. (Esta regla finalmente no fue 
+* Crear un nuevo tablero (estado del juego), cambiando el estado de `C` a `bandera`. (Esta regla finalmente no fue
 utilizada).
 * Crear un nuevo tablero (estado del juego), cambiando el estado de `C` a `abierto`,
   siempre y cuando no haya una mina debajo de la casilla.
 
-## Representación de un estado del juego ##
+@@ Representación de un estado del juego @@
 
 Un tablero (estado del juego) lo representaremos como una matriz de `alto` por
 `ancho` casillas, en donde cada casilla será un `enum` de los estados de una

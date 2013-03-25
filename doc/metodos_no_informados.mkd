@@ -1,30 +1,30 @@
-# Descripción de los métodos no informados #
+@ Descripción de los métodos no informados @
 
-En la siguiente sección se describiran los métodos de búsqueda no informados que se utilizaron para resolver el 
-problema. Esta sección contiene una explicación de los 3 enfoques tomados (DFS, BFS y profundiazión iterativa). 
+En la siguiente sección se describiran los métodos de búsqueda no informados que se utilizaron para resolver el
+problema. Esta sección contiene una explicación de los 3 enfoques tomados (DFS, BFS y profundiazión iterativa).
 
-Las búsquedas desinformadas, también conocidas como búsquedas ciegas, no tienen información adicional acerca de 
-los estados que la que otorga la definición del problema. Además, estas búsquedas al desarrollar el árbol de 
+Las búsquedas desinformadas, también conocidas como búsquedas ciegas, no tienen información adicional acerca de
+los estados que la que otorga la definición del problema. Además, estas búsquedas al desarrollar el árbol de
 estados, únicamente toman información de su rama.
 
-Para desarrollar estos algoritmos, se utilizó el motor de inferencia desarrollado por la catedra, levemente 
-modificado para satisfacer ciertos enfoques que deseabamos tomar, además de simplificarnos (desde nuestra 
+Para desarrollar estos algoritmos, se utilizó el motor de inferencia desarrollado por la catedra, levemente
+modificado para satisfacer ciertos enfoques que deseabamos tomar, además de simplificarnos (desde nuestra
 perspectiva) el código.
 
-De este modo, el motor del juego, resuelve el problema dependiendo de la estrategia elegida, dejandole a esta 
-clase la responsabilidad de decidir en que orden se expandiran los nodos del árbol y con que criterio serán o no 
+De este modo, el motor del juego, resuelve el problema dependiendo de la estrategia elegida, dejandole a esta
+clase la responsabilidad de decidir en que orden se expandiran los nodos del árbol y con que criterio serán o no
 evaluados.
 
-Particularmente en el problema presentado, es importante resaltar el hecho de que simplemente es suficiente (y 
-necesario) tomar aquellos nodos que al ser evaluados no hayan encontrado mians. Si bien, esto implica que el motor 
-posiblemente 'pierda' durante el análisis, el objetivo de nuestro motor es encontrar una solución y no ganar (de 
+Particularmente en el problema presentado, es importante resaltar el hecho de que simplemente es suficiente (y
+necesario) tomar aquellos nodos que al ser evaluados no hayan encontrado mians. Si bien, esto implica que el motor
+posiblemente 'pierda' durante el análisis, el objetivo de nuestro motor es encontrar una solución y no ganar (de
 todos modos, asumir una derrota finalizaría el algoritmo).
-Como dato adicional, es importante notar que la profundidad del árbol al encontar una solución, siempre será igual 
-a la cantidad de casillas libres, ya que es necesario abrir todas las casillas libres para poder ganar. De esta 
-misma manera, podemos asegurar que todas las soluciones son equivalentes y el orden de casillas abiertas es 
+Como dato adicional, es importante notar que la profundidad del árbol al encontar una solución, siempre será igual
+a la cantidad de casillas libres, ya que es necesario abrir todas las casillas libres para poder ganar. De esta
+misma manera, podemos asegurar que todas las soluciones son equivalentes y el orden de casillas abiertas es
 irrelevante, ya que así se presenta la naturaleza del juego.
 
-Un factor extra, fue la revelación de que en nuestro nodo no hay estados reversibles (ya que no es posible cerrar 
-una casilla ya abierta), obligando a que nuestro árbol no contenga ciclos. De este mismo modo, podemos asegurar 
-que un nodo en la frontera jamás será equivalente a un nodo ya expandido. Una vez entendidas estas afirmaciones 
+Un factor extra, fue la revelación de que en nuestro nodo no hay estados reversibles (ya que no es posible cerrar
+una casilla ya abierta), obligando a que nuestro árbol no contenga ciclos. De este mismo modo, podemos asegurar
+que un nodo en la frontera jamás será equivalente a un nodo ya expandido. Una vez entendidas estas afirmaciones
 pudimos modificar y simplificar el motor de inferencia erradicando el uso y el chequeo de los nodos ya explotados.
