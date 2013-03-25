@@ -1,0 +1,32 @@
+@ Anexo @
+
+Las pruebas fueron realizadas con una MacBook Pro con un procesador 2.4Ghz Intel Core i5.
+
+A continuación se presenta una tabla comparativa de los tiempos de ejecución para las 3 estrategias no informadas con tres tableros de tamaños distintos.
+
+|| Tablero 3 x 3 | Tablero 4 x 4 | Tablero 5 x 5 |
+|----|-----------| ------------- | ------------- |
+| DFS | 0.0266s  | 0.0266s       | 0.0500s       |
+| BFS | 0.0500s  | 0.07066s      | 7.36166s      |
+| ID nivel 5 | 0.00500s | 0.07166s | 21.2826s    |
+| ID nivel 100 | 0.0266s | 0.0266s | 0.0500s     |
+
+A continuación se presenta una tabla comparativa del total de los nodos expandidos para las 3 estrategias no informadas con tres tableros de tamaños distintos.
+
+|| Tablero 3 x 3 | Tablero 4 x 4 | Tablero 5 x 5 |
+|----|-----------| ------------- | ------------- |
+| DFS | 6 | 11       | 18       |
+| BFS | 63  | 2047      | 262143      |
+| ID nivel 5 | 44 | 1983 | 258100    |
+| ID nivel 100 | 6 | 11 | 18     |
+A continuación se presenta una tabla comparativa con la cantidad total de estados generados para las 3 estrategias no informadas con tres tableros de tamaños distintos.
+
+|| Tablero 3 x 3 | Tablero 4 x 4 | Tablero 5 x 5 |
+|----|-----------| ------------- | ------------- |
+| DFS | 22  | 67      | 172       |
+| BFS | 64  | 2048      | 262144      |
+| ID nivel 5 | 60 | 2039 | 261166    |
+| ID nivel 100 | 22 | 67 | 172     |
+
+Por último queriamos dejar una referencia al paper que trata en profundidad CSPStrategy que incluye tablas y gráficos informativos acerca de la performance de la estrategia http://www.cs.utoronto.ca/~cvs/minesweeper/minesweeper.pdf
+
