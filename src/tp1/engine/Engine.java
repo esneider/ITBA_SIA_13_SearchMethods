@@ -21,13 +21,13 @@ public class Engine {
 
 			if (node == null) {
 
-				printInfo(strategy, node, startTime, false);
+				printInfo(problem, node, startTime, false);
 				break;
 			}
 
 			if (problem.isGoalState(node.getState())) {
 
-				printInfo(strategy, node, startTime, true);
+				printInfo(problem, node, startTime, true);
 				break;
 			}
 
@@ -48,22 +48,25 @@ public class Engine {
 		}
 	}
 
-	private void printInfo(Strategy strategy, Node node, long startTime, boolean win) {
+	private void printInfo(Problem problem, Node node, long startTime, boolean win) {
 
 		long finishTime = System.currentTimeMillis();
 
+		System.out.println("Para el tablero:");
+		System.out.print(problem);
+
 		if (win) {
-			System.out.println("Se encontr— una soluci—n ('.' = abierto, '#' = cerrado):");
+			System.out.println("Se encontr— la soluci—n ('.' = abierto, '#' = cerrado):");
 			System.out.print(node);
 		} else {
 			// Shouldn't reach this... ever
 			System.out.println("No se encontr— ninguna soluci—n");
 		}
 
-		System.out.println("Estrategia usada: " + strategy.getName());
+		System.out.println("Estrategia usada: " + problem.getStrategy().getName());
 		System.out.println("Tiempo de ejecuci—n: " + (finishTime - startTime) / (double) 1000 + " s");
 		System.out.println("Profundidad de la soluci—n: " + node.getLevel());
 
-		strategy.printInfo();
+		problem.getStrategy().printInfo();
 	}
 }

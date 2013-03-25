@@ -1,8 +1,10 @@
-package tp1.problem;
+package tp1;
 
 import java.io.FileNotFoundException;
 
 import tp1.engine.Engine;
+import tp1.problem.Game;
+import tp1.problem.Problem;
 import tp1.strategy.Strategy;
 import tp1.strategy.uninformed.BFSStrategy;
 import tp1.strategy.uninformed.DFSStrategy;
@@ -12,16 +14,17 @@ public class Solver {
 
 	public static void main(String[] args) {
 
-		// parse input method
-
-		int argsPos;
 		Game game;
+		Strategy strategy;
+		int argsPos;
 
 		if (args.length <= 2) {
 			printUsage();
 			return;
 		}
 		
+		// parse input method
+
 		if (args[0].equals("-f")) {
 
 			try {
@@ -57,8 +60,6 @@ public class Solver {
 
 		// parse search method
 
-		Strategy strategy;
-
 		if (args[argsPos].equals("DFS")) {
 			
 			strategy = new DFSStrategy(game);
@@ -91,6 +92,8 @@ public class Solver {
 			printUsage();
 			return;
 		}
+
+		// run game
 
 		new Engine().solve(new Problem(game, strategy));
 	}

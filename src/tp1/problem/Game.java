@@ -142,4 +142,19 @@ public class Game {
 			}
 		}
 	}
+	
+	@Override
+	public String toString() {
+
+        String sol = "";
+
+        for (int[] col : board) {
+            for (int pos : col) {
+                sol += pos == MINE ? "*" : "" + pos;
+            }
+            sol += "\n";
+        }
+
+        return sol;
+	}
 }

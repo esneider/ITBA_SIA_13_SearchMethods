@@ -1,12 +1,33 @@
-#ITBA_SIA_13_SearchMethods
+# ITBA_SIA_13_SearchMethods
 
-###Grupo 3
+### Grupo 3
 
-##Problema: Buscaminas
+## Problema: Buscaminas
 
-###Descripción
+### Cómo compilar el código
 
-El Buscaminas (en inglés: Minesweeper) es un videojuego para un jugador inventado por Robert Donner en 1989. El objetivo del juego es despejar un campo de minas sin detonar ninguna mina.
+```
+ant jar
+```
 
+### Cómo correr la aplicación
 
-[URL](http://es.wikipedia.org/wiki/Buscaminas)
+```
+ant run -Dargs="-f archivo estrategia"
+ant run -Dargs="-r ancho alto minas estrategia"
+```
+
+La primera opción lee el tablero del juego de `archivo`, la segunda crea un
+tablero al azar con las dimensiones y cantidad de minas dadas.
+
+La `estrategia` tiene que ser `DFS`, `BFS` o `ID`. En caso de que se use `ID`,
+se puede pasar un argumento extra con el paso del iterative deepening (el paso
+por defaut es 1).
+
+Por ejemplo, la siguiente llamada correrá un iterative deepening con paso 5 en
+un tablero al azar de dimensiones 10x5, con 8 minas:
+
+```
+ant run -Dargs="-r 10 5 8 ID 5"
+```
+
