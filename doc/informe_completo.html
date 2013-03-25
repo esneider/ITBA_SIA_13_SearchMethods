@@ -106,106 +106,104 @@ Un factor extra, fue la revelación de que en nuestros nodos no hay estados reve
 Teniendo todo esto en cuenta pudimos modificar y simplificar el motor de inferencia erradicando el uso y el chequeo de los nodos ya explotados.
 ## DFS: Depth First Search ##
 
-Un algoritmo DFS es un tipo de algoritmo que expande primero el nodo de mayor profundidad, almacenando siempre
-un camino desde la raíz a un nodo hoja, más todos los nodos todavía no expandidos.
+Un algoritmo DFS es un algoritmo que expande primero el nodo de mayor profundidad.
+Para implementarlo, utilizamos una `Stack`.
 
 En el caso del buscaminas, esto se traduce como simplemente abrir una casilla y luego otra y así sucesivamente
 hasta ganar el juego. En caso de encontrar una mina, se vuelve al nodo padre.
 
-Para implementarla, utilizamos una Stack (Pila) que modela de forma óptima al DFS.
-
-Al probarlo nos encontramos con que este método provee una solución en tiempos rápidos. Esto se debe a que el
+Al probarlo nos encontramos con que este método provee una solución en tiempos sumamente rápidos. Esto se debe a que el
 camino de nodos expandidos para encontrar la solución es pequeña, siempre avanzando en pos de la solución.
-
-En secciones posteriores se ofreceran tiempos de ejecución que se obtuvieron en tableros de prueba y comparaciones
-con otras estrategias.
 ## BFS: Breadth First Search ##
 
-Este tipo de estrategias tiene como particularidad que comienza expandiendo los nodos
-con menor profundidad. De esta manera, en caso de haber soluciones de poca profundidad,
+Este algoritmo tiene la característica de que siempre expande nodos con la menor
+profundidad posible. De esta manera, en caso de haber soluciones de poca profundidad,
 puede resultar muy eficiente.
 
-En el caso del buscaminas, la profundidad de la solución se conoce de antemano, siendo
+En nuestro caso, la profundidad de la solución se conoce de antemano, siendo
 esta la cantidad de casillas libres. En un juego de buscaminas considerado "experto",
 alrededor de un 80% de las casillas estaran libres, haciendo así que una estrategia
-de tipo BFS tarde tiempos considerables en encontrar una solución.
+de tipo BFS inaccesible tanto por el uso de tiempo como de memoria: recorre
+todos los estados posibles, es decir `2^(cantidad de casillas libres)`
 
-Más aún, al recorrer todo el árbol, termina siendo abusiva la cantidad de memoria que
-este algoritmo utiliza, generando un número importante de nodos por ronda. Debe
-considerarse que en cada nivel del árbol, por cada nodo existente, se expanden n
-casillas libres nodos. Naturalmente, por eficiencia espacial y temporal, hemos evitado
-evaluar estados equivalentes, a pesar de que el nodo padre sea uno distinto. Sin
-embargo, el crecimiento sigue siendo rápido, habiendo en cada nivel un número de nodos
-equivalente al número combinatorio entre el nivel del árbol y la cantidad de casillas
-libres.
-
-En un principio, bastaria implementar una estrategia BFS con una estructura dada por una
-cola, que representa perfectamente la necesidad de analizar primero los nodos de menor
-profundidad, sin embargo, por razones de eficiencia hemos agregado un HashSet de estados
-para poder validar con rapidez si algún estado equivalente ha sido repetido. Tras hacer
-ciertas pruebas hemos visto que el número de estado repetidos es muy grade, inclusive,
-siendo mayor que el número de nodos evaluados, por lo cual consideramos al HashSet una
+En principio, basta para implementar una estrategia BFS una estructura `Queue`,
+que representa perfectamente la necesidad de analizar primero los nodos de menor
+profundidad, sin embargo, por razones de eficiencia hemos agregado un `HashSet` de estados
+para poder validar con rapidez si los estados añadidos no fueron ya visitados. Tras hacer
+varias pruebas hemos visto que el número de estado repetidos es muy grade, siendo varias
+veces mayor que el número de nodos expandidos, por lo cual consideramos al `HashSet` una
 gran mejora en el algoritmo. La función de hash utilizada, creada por nosotros, se
-explica a continuación:
+explica a continuación.
+
+Se calcula un valor para cada casilla, dependiente de su posición y su estado. El hash de
+un tablero sera la suma de estos valores para cada casilla, permitiendonos calcular rápido
+el hash de estados 'hijos'.
 ## ID: Iterative Deepening ##
 
 Iterative deepening, en español conocido como profundización iterativa, es una
-estrategia que combina las ventajas de un DFS y un BFS.
-Eligiendo un nivel de profundización n, se realiza un DFS hasta ese nivel, completando
+estrategia que combina un DFS y un BFS.
+Eligiendo un nivel de profundización `n`, se realiza un DFS hasta ese nivel, completando
 luego el árbol simulando un BFS pero recorriendo de modo completo cada rama en primer
 lugar.
 
 Dada la naturaleza del buscaminas, siendo el nivel de la solución constante pudimos
 concluir que realizar ID finaliza comportandose como un DFS o como un BFS dependiendo
-del nivel n elegido. En casos en donde n es más grande que la profunidad de la solución,
+del nivel `n` elegido. En casos en donde `n` es más grande que la profunidad de la solución,
 ID se comportará como un DFS. En caso contrario (si bien analiza nodos en orden
-diferente) tendrá la misma eficiencia que un BFS.
+diferente) tendrá aproximádamente la misma eficiencia que un BFS.
 
 Para modelar esta estrategia, se utilizaron las estructuras explicadas en las
-estrategias anteriores: Una pila, una cola y un HashSet (para evitar el análisis de
-nodos repetidos de manera eficiente).
-La lógica de funcionamiento funciona de modo tal de tratar de evaluar siempre nodos de
+estrategias anteriores: Una `Stack`, una `Queue` y un `HashSet` (para evitar el análisis de
+nodos repetidos de manera eficiente, con una estrategia similar a la del BFS).
+El algoritmo funciona de modo tal de tratar de evaluar siempre nodos de
 la pila mientras los haya (tratando de llegar a profunidad n). En caso de que la pila
 este vacia, se toman elementos de la cola. El criterio para decidir si un nodo debe
 esperar su turno para ser evaluado en la cola o en la pila depende simplemente de si el
-nivel del nodo es divisible o no por el n elegido.
+nivel del nodo es divisible o no por el `n` elegido.
+# Comparación de las estrategias #
+
+Si bien el funcionamiento de cada una de las estrategias fue explicado en las secciones anteriores, es interesante comparar las estrategias entre sí.
+
+En el anexo se agregaron tres tablas correspondientes a al tiempo de ejecución, cantidad de nodos expandidos, y cantidad de estados distintos generados. Cada uno de los valorers representados es un promedio de varias ejecuciones consecutivas.
+
+Se puede ver que tanto el BFS como el ID con paso chico, son muy inferiores al DFS y al ID con paso grande, en las tres variables tenidas en cuenta. Tanto es así, que para tableros grandes, el BFS y el ID con paso chico directamente no terminan (la computadora se queda sin memoria).
 # Metodos Informados #
 
 Un metodo de búsqueda informado, es un método que añade valores que estiman cuánto
-falta para alcanzar el objetivo. Estos valores estan dados por una función heuristica.
+falta para alcanzar el objetivo, basado en lo que ya recorrió. Estos valores estan dados por una función heuristica.
 Particularmente, en clase, vimos estrategias tales como el Greedy Search y el A Star.
 
-Estas funciones heuristicas vistas en clase respetaban una estructura de tipo:
-
+Estas funciones heuristicas respetan una estructura de tipo:
+```
 f(n) = g(n) + h(n)
+```
 
-Siendo n el nodo que esta siendo analizado, f el costo de la solución más barata pasando
-por n, g el costo de la ruta desde el nodo inicial hasta n y siendo h la estimación del
-mínimo costo de la ruta desde n hasta un nodo objetivo.
+Siendo `n` el nodo que esta siendo analizado, `f` el costo de la solución más barata pasando
+por `n`, `g` el costo de la ruta desde el nodo inicial hasta `n` y siendo `h` la estimación del
+mínimo costo de la ruta desde `n` hasta un nodo objetivo.
 
-Trás un análisis del juego del buscaminas se puede ver que el principal componente del
+Trás un análisis del juego del buscaminas notamos que el principal componente del
 juego a la hora de tomar decisiones es un componente probabilistico dado por los números
 que van apareciendo en el tablero (muchas veces siendo certezas), por lo cual establecer
-alguna heuristica no trivial que cumpla con la estructura viste en clase y que aplique
+alguna heuristica no trivial que cumpla con la estructura vista en clase y que aplique
 para el costo de nuestras aristas entre estado y estado no es posible. Esto se debe
-principlamente a que nuestra h se veia reducida a probabilidades, cosa que no es
+principlamente a que nuestra h se veía reducida a probabilidades, cosa que no es
 compatible con la estructura de funciones heuristicas presentadas.
 
-Si bien por cuestiones de tiempo no fueron implementadas, es posible realizar algoritmos
-complejos para resolver el juego en cuestión. Estas estrategias, si bien no pueden
-modelarse como un Greedy Search o un A Star, pueden contener decisiones greedy en el
-proceso o inclusive apuntar a comportarse de modo "inteligente", muchas veces apuntando
-a jugar como jugaría un humano, e inclusive tratando de superarlo.
+Si bien por cuestiones de tiempo no fueron implementados, es posible realizar algoritmos
+complejos para resolver el juego como lo haría un humano. Estas estrategias, si bien no pueden
+modelarse como un Greedy Search o un A Star, pueden contener decisiones de tipo greedy en el
+proceso o inclusive apuntar a comportarse de modo "inteligente".
 
 A continuación se explicara brevemente uno de estos algoritmos a modo de ejemplo.
 ## Solución Alternativa ##
 
-Existen varios enfoques al problema del buscaminas, estando estos basados en calculos
+Existen varios enfoques al problema del buscaminas, estando estos basados en cálculos
 de probabilidades. En esta sección tomaremos por ejemplo el algoritmo explicado en el
-paper "Minesweeper as a Constraint Satisfaction Problem" escrito por Chris Studholme en
-2001. Si bien paper tiene más de 10 años y existen papers más actuales sobre el problema,
-el enfoque de este paper esta basado en el cálculo de probabilidades (sobre el cual
-queremos hacer hincapié) y es un paper claro y de complejidad sencilla.
+paper "Minesweeper as a Constraint Satisfaction Problem" escrito por Chris Studholme en 2001.
+Si bien el paper tiene más de 10 años y existen papers más actuales sobre el problema,
+el enfoque de este paper está basado en el cálculo de probabilidades (sobre el cual
+queremos hacer hincapié) y es un paper claro y fácil de entender.
 
 Chris Studholme se basó en PGMS (Programmer's Minesweeper) para realizar su estrategia.
 PGMS posee un motor similar al motor de inferencia provisto por la catedra, dejandole al
@@ -214,33 +212,64 @@ usuario la única responsabilidad de implementar la estrategia del juego del bus
 El modo de juego desarrollado en el paper difiere de los objetivos de nuestro algoritmo.
 Si bien nuestro objetivo es encontrar una solución, el objetivo del autor es el de
 encontrar una solución sin toparse ninguna mina en el camino (equivalente al juego real).
-De este modo otros recaudos deben tomarse en cuenta. Además, este factor hace que nuestras
+De este modo otros recaudos deben tenerse en cuenta. Además, este factor hace que nuestras
 estrategias y la del CSPStrategy (nombre que le da el autor a su estrategia) no puedan ser
 comparadas.
 
-En un primer lugar, el autor hace enfasis en la elección de la primer casilla del juego,
+En un primer lugar, el autor hace énfasis en la elección de la primer casilla del juego,
 siendo esta una elección sin información. Tras un desarrollo, se explica que sería
 conveniente encontrar casillas cuyo número sea un 0 y es demostrado que aquellas
 casillas son las de las esquinas.
 
-En segundo lugar, provee un algoritmo de 7 pasos para elegir la casilla más conveniente a
+En segundo lugar, provee un algoritmo de 7 pasos para elegir la casilla más conveniente para
 abrir. A continuación se hace una breve explicación de este algoritmo:
 
-* En primer lugar se realiza un calculo de probabilidades por casilla. En ciertos de estos casos se pude definir con certeza que en algunas casillas no hay minas o que por el contrario si las hay. En este caso, se procede a operar con estas casillas y se vuelve a comenzar el algoritmo.
+* En primer lugar se realiza un cálculo de probabilidades por casilla. En ciertos casos se puede definir con certeza que en algunas casillas no hay minas o que, por el contrario, si las hay. En este caso, se procede a operar con estas casillas y se vuelve a comenzar el algoritmo.
 
 * En segundo lugar, puede haber codependencias entre las probabilidades de las casillas. Así, el segundo caso consiste en simplificar estas probabilidades uniendo datos ya conocidos. Operando de esta manera puede volver a suceder que se obtenga algún caso trivial, en cuyo caso se vuelve al paso 1.
 
-* En el caso en que hasta este punto no existan soluciones triviales, se puede dividir el espacio de probabilidades en subconjuntos que no sean codependientes. En base a esto, se modelan y calculan todas las posibles soluciones al juego. Algunas de estas posibilidades deben ser eliminadas ya que en ciertos casos no se cumplen condiciones (sea por ejemplo una diferencia en la cantidad de minas en el tablero y la cantidad de minas modeladas).
+* En el caso ya no existan soluciones triviales y se puede dividir el espacio de probabilidades en subconjuntos que no sean codependientes. En base a esto, se modelan y calculan todas las posibles soluciones a los subconjuntos del juego. Algunas de estas posibilidades deben ser eliminadas ya que en ciertos casos rompen restricciones (sea por ejemplo una diferencia en la cantidad de minas en el tablero y la cantidad de minas modeladas).
 
 * Una vez más, es posible que al calcular las soluciones posibles, contemos con alguna casilla trivial, en cuyo caso se vuelve al paso 1.
 
-* Si para este punto no se cuentan con certezas, habrá que hacer alguna apuesta. Si bien sería intuitivo apostar a la casilla con mayor probabilidad de triunfo, esto no es lo que realiza el algoritmo. Al evaluar los subconjuntos, es posible que alguno de estos vaya a ser inmutable e inexpandible al continuar el desarrollo de juego. El autor plantea que es conveniente resolver estas incognitas en primer lugar (denominadas por el autor como "Craps Shot") ya que es preferible perder en esta instancia y volver a comenzar un juego rapidamente, a posponer estas decisiones para el final del juego.
+* Si se llega a este punto, habrá que hacer alguna apuesta. Si bien sería intuitivo apostar a la casilla con mayor probabilidad de triunfo, esto no es lo que realiza el algoritmo. Al evaluar los subconjuntos, es posible que alguno de estos vaya a ser inmutable e inexpandible al continuar el desarrollo de juego. El autor plantea que es conveniente resolver estas incognitas en primer lugar (denominadas por el autor como "Craps Shot") ya que es preferible perder en esta instancia y volver a comenzar un juego rapidamente, a posponer estas decisiones para el final del juego.
 
 * En el caso de no haber "Craps Shot" sí se procede a elegir la casilla con mejor probabilidad.
 
-* En el caso en que no haya una casilla con mejor probabilidad y nos hayamos quedado sin información relevante se procede de modo similar al comienzo del juego, tratando de buscar ceros y apostando a una casilla en alguna esquina.
+* En el caso en que no haya una casilla con mejor probabilidad y nos hayamos quedado sin información relevante se procede de modo similar al comienzo del juego, tratando de buscar ceros y apostando a una casilla de las esquinas.
 
-Como fue mencionado, no es posible comparar CSPStrategy con nuestras estrategias, pero si es posible compararlo con otros algoritmos. PGMS provee dos estrategias en su distribución, una trivial y una que se cree que toma un enfoque similar a CSPStrategy. Tanto en porcentaje de victorias como en tiempo de procesamiento de juego CSPStrategy supera a ambas estrategias de PGMS. En el anexo se adjuntan gráficos extraidos del paper.
+Como fue mencionado, no es posible comparar CSPStrategy con nuestras estrategias, pero si es posible compararlo con otros algoritmos similares. PGMS provee dos estrategias en su distribución, una trivial y una que se cree que toma un enfoque similar a CSPStrategy. Tanto en porcentaje de victorias como en tiempo de procesamiento de juego CSPStrategy supera a ambas estrategias de PGMS. Para más información, ver la referencia al paper en el anexo.
+# Anexo #
+
+Las pruebas fueron realizadas con una MacBook Pro con un procesador 2.4Ghz Intel Core i5.
+
+A continuación se presenta una tabla comparativa de los tiempos de ejecución para las 3 estrategias no informadas con tres tableros de tamaños distintos.
+
+|| Tablero 3 x 3 | Tablero 4 x 4 | Tablero 5 x 5 |
+|----|-----------| ------------- | ------------- |
+| DFS | 0.0266s | 0.0266s | 0.0500s |
+| BFS | 0.0500s | 0.07066s | 7.36166s |
+| ID nivel 5 | 0.00500s | 0.07166s | 21.2826s |
+| ID nivel 100 | 0.0266s | 0.0266s | 0.0500s |
+
+A continuación se presenta una tabla comparativa del total de los nodos expandidos para las 3 estrategias no informadas con tres tableros de tamaños distintos.
+
+|| Tablero 3 x 3 | Tablero 4 x 4 | Tablero 5 x 5 |
+|----|-----------| ------------- | ------------- |
+| DFS | 6 | 11 | 18 |
+| BFS | 63 | 2047 | 262143 |
+| ID nivel 5 | 44 | 1983 | 258100 |
+| ID nivel 100 | 6 | 11 | 18 |
+A continuación se presenta una tabla comparativa con la cantidad total de estados generados para las 3 estrategias no informadas con tres tableros de tamaños distintos.
+
+|| Tablero 3 x 3 | Tablero 4 x 4 | Tablero 5 x 5 |
+|----|-----------| ------------- | ------------- |
+| DFS | 22 | 67 | 172 |
+| BFS | 64 | 2048 | 262144 |
+| ID nivel 5 | 60 | 2039 | 261166 |
+| ID nivel 100 | 22 | 67 | 172 |
+
+Por último queriamos dejar una referencia al paper que trata en profundidad CSPStrategy que incluye tablas y gráficos informativos acerca de la performance de la estrategia http:
 
 </xmp>
 

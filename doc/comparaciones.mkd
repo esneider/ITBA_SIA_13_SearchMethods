@@ -1,0 +1,7 @@
+@ Comparación de las estrategias @
+
+Si bien el funcionamiento de cada una de las estrategias fue explicado en las secciones anteriores, es interesante comparar las estrategias entre sí.
+
+En el anexo se agregaron tres tablas correspondientes a al tiempo de ejecución, cantidad de nodos expandidos, y cantidad de estados distintos generados. Cada uno de los valorers representados es un promedio de varias ejecuciones consecutivas.
+
+Se puede ver que tanto el BFS como el ID con paso chico, son muy inferiores al DFS y al ID con paso grande, en las tres variables tenidas en cuenta. Tanto es así, que para tableros grandes, el BFS y el ID con paso chico directamente no terminan (la computadora se queda sin memoria).

@@ -1,29 +1,29 @@
 @ Metodos Informados @
 
 Un metodo de búsqueda informado, es un método que añade valores que estiman cuánto
-falta para alcanzar el objetivo. Estos valores estan dados por una función heuristica.
+falta para alcanzar el objetivo, basado en lo que ya recorrió. Estos valores estan dados por una función heuristica.
 Particularmente, en clase, vimos estrategias tales como el Greedy Search y el A Star.
 
-Estas funciones heuristicas vistas en clase respetaban una estructura de tipo:
-
+Estas funciones heuristicas respetan una estructura de tipo:
+```
 f(n) = g(n) + h(n)
+```
 
-Siendo n el nodo que esta siendo analizado, f el costo de la solución más barata pasando
-por n, g el costo de la ruta desde el nodo inicial hasta n y siendo h la estimación del
-mínimo costo de la ruta desde n hasta un nodo objetivo.
+Siendo `n` el nodo que esta siendo analizado, `f` el costo de la solución más barata pasando
+por `n`, `g` el costo de la ruta desde el nodo inicial hasta `n` y siendo `h` la estimación del
+mínimo costo de la ruta desde `n` hasta un nodo objetivo.
 
-Trás un análisis del juego del buscaminas se puede ver que el principal componente del
+Trás un análisis del juego del buscaminas notamos que el principal componente del
 juego a la hora de tomar decisiones es un componente probabilistico dado por los números
 que van apareciendo en el tablero (muchas veces siendo certezas), por lo cual establecer
-alguna heuristica no trivial que cumpla con la estructura viste en clase y que aplique
+alguna heuristica no trivial que cumpla con la estructura vista en clase y que aplique
 para el costo de nuestras aristas entre estado y estado no es posible. Esto se debe
-principlamente a que nuestra h se veia reducida a probabilidades, cosa que no es
+principlamente a que nuestra h se veía reducida a probabilidades, cosa que no es
 compatible con la estructura de funciones heuristicas presentadas.
 
-Si bien por cuestiones de tiempo no fueron implementadas, es posible realizar algoritmos
-complejos para resolver el juego en cuestión. Estas estrategias, si bien no pueden
-modelarse como un Greedy Search o un A Star, pueden contener decisiones greedy en el
-proceso o inclusive apuntar a comportarse de modo "inteligente", muchas veces apuntando
-a jugar como jugaría un humano, e inclusive tratando de superarlo.
+Si bien por cuestiones de tiempo no fueron implementados, es posible realizar algoritmos
+complejos para resolver el juego como lo haría un humano. Estas estrategias, si bien no pueden
+modelarse como un Greedy Search o un A Star, pueden contener decisiones de tipo greedy en el
+proceso o inclusive apuntar a comportarse de modo "inteligente".
 
 A continuación se explicara brevemente uno de estos algoritmos a modo de ejemplo.

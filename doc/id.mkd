@@ -1,22 +1,22 @@
 @@ ID: Iterative Deepening @@
 
 Iterative deepening, en español conocido como profundización iterativa, es una
-estrategia que combina las ventajas de un DFS y un BFS.
-Eligiendo un nivel de profundización n, se realiza un DFS hasta ese nivel, completando
+estrategia que combina un DFS y un BFS.
+Eligiendo un nivel de profundización `n`, se realiza un DFS hasta ese nivel, completando
 luego el árbol simulando un BFS pero recorriendo de modo completo cada rama en primer
 lugar.
 
 Dada la naturaleza del buscaminas, siendo el nivel de la solución constante pudimos
 concluir que realizar ID finaliza comportandose como un DFS o como un BFS dependiendo
-del nivel n elegido. En casos en donde n es más grande que la profunidad de la solución,
+del nivel `n` elegido. En casos en donde `n` es más grande que la profunidad de la solución,
 ID se comportará como un DFS. En caso contrario (si bien analiza nodos en orden
-diferente) tendrá la misma eficiencia que un BFS.
+diferente) tendrá aproximádamente la misma eficiencia que un BFS.
 
 Para modelar esta estrategia, se utilizaron las estructuras explicadas en las
-estrategias anteriores: Una pila, una cola y un HashSet (para evitar el análisis de
-nodos repetidos de manera eficiente).
-La lógica de funcionamiento funciona de modo tal de tratar de evaluar siempre nodos de
+estrategias anteriores: Una `Stack`, una `Queue` y un `HashSet` (para evitar el análisis de
+nodos repetidos de manera eficiente, con una estrategia similar a la del BFS).
+El algoritmo funciona de modo tal de tratar de evaluar siempre nodos de
 la pila mientras los haya (tratando de llegar a profunidad n). En caso de que la pila
 este vacia, se toman elementos de la cola. El criterio para decidir si un nodo debe
 esperar su turno para ser evaluado en la cola o en la pila depende simplemente de si el
-nivel del nodo es divisible o no por el n elegido.
+nivel del nodo es divisible o no por el `n` elegido.
