@@ -1,11 +1,12 @@
 #!/bin/bash
 
-runs=5
+runs=3
 
 sizes="3_3_3 4_4_5 5_5_7"
 
-strategies="DFS BFS ID_5 ID_110"
+strategies="DFS BFS ID_5 ID_100"
 
+rm -r output
 mkdir output
 
 _pwd="`pwd`/output"
@@ -14,8 +15,17 @@ cd ..
 
 for size in $sizes; do
 
-    table="${_pwd}/${size}"
-    rm -f ${table}{_time,_states,_nodes}.txt
+    echo >> "${_pwd}/times.txt"
+    echo "SIZE ${size}" | tr "_" " " >> "${_pwd}/times.txt"
+    echo >> "${_pwd}/times.txt"
+
+    echo >> "${_pwd}/states.txt"
+    echo "SIZE ${size}" | tr "_" " " >> "${_pwd}/states.txt"
+    echo >> "${_pwd}/states.txt"
+
+    echo >> "${_pwd}/nodes.txt"
+    echo "SIZE ${size}" | tr "_" " " >> "${_pwd}/nodes.txt"
+    echo >> "${_pwd}/nodes.txt"
 
     for strategy in $strategies; do
 
@@ -25,7 +35,6 @@ for size in $sizes; do
         # get data
 
         data_file="${file}.data"
-        rm -f $data_file
 
         for ((i=0; i<$runs; i=i+1)); do
             ant run -Dargs="-r `echo ${size} | tr "_" " "` `echo ${strategy} | tr "_" " "`" | grep -E "\[java\]" >> ${data_file}
@@ -38,13 +47,13 @@ for size in $sizes; do
         grep -E "expandidos:" ${data_file} | grep -Eo "[0-9]+" > ${file}_nodes.table
 
         f="${file}_time.table"
-        echo "${strategy}: $(echo "scale=5 ; ($(cat "${f}" | tr "\n" "+")0) / $(cat "${f}" | wc -l)" | bc)" >> ${table}_time.txt
+        echo "${strategy}: $(echo "scale=5 ; ($(cat "${f}" | tr "\n" "+")0) / $(cat "${f}" | wc -l)" | bc)" >> "${_pwd}/times.txt"
 
         f="${file}_states.table"
-        echo "${strategy}: $(echo "scale=5 ; ($(cat "${f}" | tr "\n" "+")0) / $(cat "${f}" | wc -l)" | bc)" >> ${table}_states.txt
+        echo "${strategy}: $(echo "scale=5 ; ($(cat "${f}" | tr "\n" "+")0) / $(cat "${f}" | wc -l)" | bc)" >> "${_pwd}/states.txt"
 
         f="${file}_nodes.table"
-        echo "${strategy}: $(echo "scale=5 ; ($(cat "${f}" | tr "\n" "+")0) / $(cat "${f}" | wc -l)" | bc)" >> ${table}_nodes.txt
+        echo "${strategy}: $(echo "scale=5 ; ($(cat "${f}" | tr "\n" "+")0) / $(cat "${f}" | wc -l)" | bc)" >> "${_pwd}/nodes.txt"
     done
 done
 
