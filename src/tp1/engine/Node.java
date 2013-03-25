@@ -4,50 +4,50 @@ import tp1.problem.State;
 
 public class Node {
 
-    private State state;
-    private int cost;
-    private Node parent;
-    private int level = 0;
+	private State state;
+	private int cost;
+	private Node parent;
+	private int level = 0;
 
-    public Node(State state, int cost, Node parent) {
+	public Node(State state, int cost, Node parent) {
 
-        this.state = state;
-        this.cost = cost;
-        this.parent = parent;
-        
-        if (parent != null) {
-        	
-        	level = parent.getLevel() + 1;
-        }
-    }
+		this.state = state;
+		this.cost = cost;
+		this.parent = parent;
 
-    public int getLevel() {
+		if (parent != null) {
+
+			level = parent.getLevel() + 1;
+		}
+	}
+
+	public int getLevel() {
 
 		return level;
 	}
 
 	public State getState() {
 
-        return state;
-    }
+		return state;
+	}
 
-    public int getCost() {
+	public int getCost() {
 
-        return cost;
-    }
+		return cost;
+	}
 
-    @Override
-    public String toString() {
+	public String getSolution() {
 
-        return "" + state;
-    }
+		if (parent == null) {
+			return state.toString();
+		}
 
-    public String getSolution() {
+		return parent.getSolution() + "-----\n" + state;
+	}
 
-        if (parent == null) {
-            return "" + state;
-        }
+	@Override
+	public String toString() {
 
-        return parent.getSolution() + "-----\n" + state;
-    }
+		return state.toString();
+	}
 }

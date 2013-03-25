@@ -7,11 +7,13 @@ import tp1.rule.Rule;
 
 public interface Strategy {
 
-    public String getName();
+	public String getName();
 
-    public List<Rule> getRules();
+	public List<Rule> getRules();
 
-    public void addOpenedNode(Node node);
+	public void addOpenedNode(Node node);
 
-    public Node popOpenedNode();
+	public Node popOpenedNode();
+
+	public void printInfo();
 }

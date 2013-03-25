@@ -7,43 +7,63 @@ import tp1.strategy.Strategy;
 
 public class Engine {
 
-    public void solve(Problem problem) {
+	public void solve(Problem problem) {
 
-    	Strategy strategy = problem.getStrategy();
+		long startTime = System.currentTimeMillis();
 
-        strategy.addOpenedNode(new Node(problem.getInitialState(), 0, null));
- 
-        while (true) {
+		Strategy strategy = problem.getStrategy();
 
-            Node node = strategy.popOpenedNode();
+		strategy.addOpenedNode(new Node(problem.getInitialState(), 0, null));
 
-            if (node == null) {
+		while (true) {
 
-                System.out.println("perdimo loco!");
-                break;
-            }
+			Node node = strategy.popOpenedNode();
 
-            if (problem.isGoalState(node.getState())) {
+			if (node == null) {
 
-                System.out.println("ganamo vieja!");
-                System.out.println(node);
-                break;
-            }
+				printInfo(strategy, node, startTime, false);
+				break;
+			}
 
-            explode(strategy, node);
-        }
-    }
+			if (problem.isGoalState(node.getState())) {
 
-    private void explode(Strategy strategy, Node node) {
+				printInfo(strategy, node, startTime, true);
+				break;
+			}
 
-        for (Rule rule : strategy.getRules()) {
+			explode(strategy, node);
+		}
+	}
 
-            State newState = rule.eval(node.getState());
+	private void explode(Strategy strategy, Node node) {
 
-            if (newState != null) {
+		for (Rule rule : strategy.getRules()) {
 
-                strategy.addOpenedNode(new Node(newState, node.getCost() + rule.getCost(), node));
-            }
-        }
-    }
+			State newState = rule.eval(node.getState());
+
+			if (newState != null) {
+
+				strategy.addOpenedNode(new Node(newState, node.getCost() + rule.getCost(), node));
+			}
+		}
+	}
+
+	private void printInfo(Strategy strategy, Node node, long startTime, boolean win) {
+
+		long finishTime = System.currentTimeMillis();
+
+		if (win) {
+			System.out.println("Se encontr— una soluci—n ('.' = abierto, '#' = cerrado):");
+			System.out.print(node);
+		} else {
+			// Shouldn't reach this... ever
+			System.out.println("No se encontr— ninguna soluci—n");
+		}
+
+		System.out.println("Estrategia usada: " + strategy.getName());
+		System.out.println("Tiempo de ejecuci—n: " + (finishTime - startTime) / (double) 1000 + " s");
+		System.out.println("Profundidad de la soluci—n: " + node.getLevel());
+
+		strategy.printInfo();
+	}
 }

@@ -10,21 +10,20 @@ import tp1.strategy.Strategy;
 
 public abstract class UninformedStrategy implements Strategy {
 
-    private List<Rule> rules = new ArrayList<Rule>();
+	private List<Rule> rules = new ArrayList<Rule>();
 
-    public UninformedStrategy(Game game) {
+	public UninformedStrategy(Game game) {
 
-        for (int x = 0; x < game.getWidth(); x++) {
-            for (int y = 0; y < game.getHeight(); y++) {
-                rules.add(new UniformOpenCellRule(game, x, y));
-            }
-        }
-    }
+		for (int x = 0; x < game.getWidth(); x++) {
+			for (int y = 0; y < game.getHeight(); y++) {
+				rules.add(new UniformOpenCellRule(game, x, y));
+			}
+		}
+	}
 
-    @Override
-    public List<Rule> getRules() {
+	@Override
+	public List<Rule> getRules() {
 
-        return rules;
-    }
-
+		return rules;
+	}
 }
